@@ -7,6 +7,9 @@ import GlobalApi from '../Services/GlobalApi'
 import Posts from '../components/Posts'
 import { useStateContext } from '../contexts/ContextProvider'
 function Blog() {
+  useEffect(() => {
+    document.title = "Blog"
+  }, [])
   const [post, setPost] = useState([]);
   // const { posts, setPosts } = useStateContext();
 

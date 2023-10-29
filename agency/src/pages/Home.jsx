@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Header from '../components/Header'
 import { Image } from '@nextui-org/react'
 import Imgactualite from '../../public/images/actualité.jpg';
@@ -7,7 +7,7 @@ import { Accordion, AccordionItem } from "@nextui-org/react";
 import { AnchorIcon } from '../components/AnchorIcon';
 import AnimatedText from '../components/AnimatedText'
 // import Icon1 from '../../public/images/agency1.png';
-import { ClockIcon } from '@heroicons/react/24/solid';
+import { ClockIcon, FolderOpenIcon, GlobeAmericasIcon, HomeIcon, LightBulbIcon, LinkIcon } from '@heroicons/react/24/solid';
 
 import GridGallery from "../components/grid-galery";
 import Footer from '../components/Footer';
@@ -16,7 +16,12 @@ import Footer from '../components/Footer';
 
 
 
+
 function Home() {
+  useEffect(() => {
+    document.title = "Home page"
+  }, [])
+
   const defaultContent =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
   const images = [
@@ -28,15 +33,34 @@ function Home() {
     "../../public/images/web_developper5.jpg"
   ]
 
+  const hero = useRef(null);
+  const agence = useRef(null);
+  const actualite = useRef(null);
+  const realisation = useRef(null);
+  const gallery = useRef(null)
+
+  const scrollToSection = (elementRef) => {
+    window.scrollTo({
+      top: elementRef.current.offsetTop,
+      behavior: "smooth",
+    });
+
+  };
+
+
 
 
 
   return (
     <>
 
+
       <Header />
       <main className='flex w-full flex-col items-center justify-center'>
-        <div className="p-4 sm:p-8 md:p-12 lg:p-16 flex flex-col-reverse sm:flex-row items-center justify-between w-full">
+
+
+
+        <div ref={hero} className="hero p-4 sm:p-8 md:p-12 lg:p-16 flex flex-col-reverse sm:flex-row items-center justify-between w-full">
 
           <div className='w-full sm:w-1/2 text-center sm:text-left'>
             <h1 className='text-dark font-bold capitalize text-4xl sm:text-6xl md:text-7xl lg:text-8xl'>AGENCE DIGITAL</h1>
@@ -51,7 +75,40 @@ function Home() {
 
         </div>
 
-        <div className='w-full bg-black p-4 sm:p-8 md:p-12 lg:p-16 lg:flex lg:justify-around'>
+        <div class="fixed top-60 -right-8 w-14 h-20 z-50 hidden md:block">
+
+          <a onClick={() => scrollToSection(hero)} class="button cursor-pointer block transition-transform duration-300 transform hover:-translate-x-4">
+            <div class=" bg-dark text-white p-4 rounded-l-3xl ">
+              <HomeIcon />
+            </div>
+          </a>
+          <a onClick={() => scrollToSection(agence)} class="button cursor-pointer block pt-1 transition-transform duration-300 transform hover:-translate-x-4">
+            <div class=" bg-dark text-white p-4 rounded-l-3xl">
+              <LightBulbIcon />
+            </div>
+          </a>
+          <a onClick={() => scrollToSection(actualite)} class="button cursor-pointer block pt-1 transition-transform duration-300 transform hover:-translate-x-4">
+            <div class=" bg-dark text-white p-4 rounded-l-3xl">
+              <LinkIcon />
+            </div>
+          </a>
+          <a onClick={() => scrollToSection(realisation)} class="button cursor-pointer block pt-1 transition-transform duration-300 transform hover:-translate-x-4">
+            <div class=" bg-dark text-white p-4 rounded-l-3xl">
+              <GlobeAmericasIcon />
+            </div>
+          </a>
+          <a onClick={() => scrollToSection(gallery)} class="button cursor-pointer block pt-1 transition-transform duration-300 transform hover:-translate-x-4">
+            <div class=" bg-dark text-white p-4 rounded-l-3xl">
+              <FolderOpenIcon />
+            </div>
+          </a>
+
+        </div>
+
+
+
+
+        <div ref={agence} className='agence w-full bg-black p-4 sm:p-8 md:p-12 lg:p-16 lg:flex lg:justify-around'>
           <div className='w-full lg:w-1/2 mb-8 lg:mb-0 lg:mr-5'>
             <h2 className='text-white text-2xl sm:text-4xl font-semibold'>Notre agence Web</h2><br />
             <p className='text-white text-sm sm:text-base text-start'>Créée en 2006 en Bretagne (à Vannes, Morbihan),
@@ -95,7 +152,7 @@ function Home() {
 
         </div>
 
-        <div className='md:flex md:justify-between bg-gradient-to-r from-zinc-50 to-zinc-400 p-4 sm:p-8 md:p-12 lg:p-16 w-full'>
+        <div ref={actualite} className='actualite md:flex md:justify-between bg-gradient-to-r from-zinc-50 to-zinc-400 p-4 sm:p-8 md:p-12 lg:p-16 w-full'>
           <div className='w-full  sm:w-1/2 text-center sm:text-left mb-8 sm:mb-0'>
             <h2 className='text-dark font-bold text-4xl'>#Actualité</h2>
 
@@ -118,7 +175,7 @@ function Home() {
 
         </div>
 
-        <div className='sm:flex sm:justify-between w-full p-4 sm:p-8 md:p-12 lg:p-16 bg-gradient-to-r from-black to-zinc-500'>
+        <div ref={realisation} className='realisation sm:flex sm:justify-between w-full p-4 sm:p-8 md:p-12 lg:p-16 bg-gradient-to-r from-black to-zinc-500'>
           <div className='w-full sm:w-1/2 pb-2 '>
             <Image src={Imgactualite} alt='ImgActualite' className=' bg-black bg-opacity-50' />
           </div>
@@ -146,7 +203,11 @@ function Home() {
 
 
 
-        <GridGallery images={images} />
+        <div ref={gallery}>
+          <GridGallery images={images} />
+        </div>
+
+
       </main>
 
       <Footer />

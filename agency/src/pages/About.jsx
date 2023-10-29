@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import TitleOverlay from '../components/TitleOverlay'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -8,8 +8,25 @@ import Icon1 from '../../public/images/agency1.png'
 import AnimatedText from '../components/AnimatedText'
 import { Image } from '@nextui-org/react'
 import { motion } from 'framer-motion'
+import { CogIcon, EyeSlashIcon, QuestionMarkCircleIcon, WindowIcon } from '@heroicons/react/24/solid'
 
 function About() {
+  useEffect(() => {
+    document.title = "About"
+  }, [])
+  const about = useRef(null);
+  const about2 = useRef(null);
+  const about3 = useRef(null);
+  const about4 = useRef(null);
+
+
+  const scrollToSection = (elementRef) => {
+    window.scrollTo({
+      top: elementRef.current.offsetTop,
+      behavior: "smooth",
+    });
+
+  };
   return (
     <>
       <Header />
@@ -22,7 +39,33 @@ function About() {
             <Image src={SlidePerso} alt='ImgAgency' className='lg:w-9/12 h-auto w-full' />
           </div>
 
-          <div className='w-full lg:w-1/2 px-4 lg:px-8 pt-5 lg:pt-0'>
+          <div class="fixed top-60 -right-8 w-14 h-auto z-50 hidden md:block">
+
+            <a onClick={() => scrollToSection(about)} class="button cursor-pointer block transition-transform duration-300 transform hover:-translate-x-4">
+              <div class=" bg-dark text-white p-4 rounded-l-3xl ">
+                <QuestionMarkCircleIcon />
+              </div>
+            </a>
+            <a onClick={() => scrollToSection(about2)} class="button cursor-pointer block pt-1 transition-transform duration-300 transform hover:-translate-x-4">
+              <div class=" bg-dark text-white p-4 rounded-l-3xl">
+                <CogIcon />
+              </div>
+            </a>
+            <a onClick={() => scrollToSection(about3)} class="button cursor-pointer block pt-1 transition-transform duration-300 transform hover:-translate-x-4">
+              <div class=" bg-dark text-white p-4 rounded-l-3xl">
+                <EyeSlashIcon />
+              </div>
+            </a>
+            <a onClick={() => scrollToSection(about4)} class="button cursor-pointer block pt-1 transition-transform duration-300 transform hover:-translate-x-4">
+              <div class=" bg-dark text-white p-4 rounded-l-3xl">
+                <WindowIcon />
+              </div>
+            </a>
+
+
+          </div>
+
+          <div ref={about} className='w-full lg:w-1/2 px-4 lg:px-8 pt-5 lg:pt-0'>
             <motion.h1 className='text-orange2 font-bold capitalize text-4xl sm:text-5xl lg:text-6xl'
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .5, duration: .8 }}
             >AGENCE DIGITAL</motion.h1>
@@ -44,7 +87,7 @@ function About() {
 
         </div>
 
-        <div className="bg-gradient-to-tr from-zinc-700 to-zinc-800 h-full w-full  relative">
+        <div ref={about2} className="bg-gradient-to-tr from-zinc-700 to-zinc-800 h-full w-full  relative">
           <img src={Buildings} alt="" className='w-full h-full object-cover absolute mix-blend-overlay' />
           <div className="p-8 md:p-12 lg:p-24 xl:w-1/2">
             <h1 className='text-white text-4xl md:text-6xl font-bold'>Qui sommes-nous ?</h1>
@@ -62,7 +105,7 @@ function About() {
 
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row items-center justify-between w-full bg-orange2 p-8 md:p-10 lg:p-12 xl:p-0">
+        <div ref={about3} className="flex flex-col sm:flex-row items-center justify-between w-full bg-orange2 p-8 md:p-10 lg:p-12 xl:p-0">
 
           <div className='w-full sm:w-2/5 px-4 lg:px-0'>
             <Image src={SlidePerso} alt='ImgAgency' className='lg:w-9/12 w-full h-auto' />
@@ -89,7 +132,7 @@ function About() {
           </div>
 
         </div>
-        <div className='flex flex-col sm:flex-row items-center w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-6 sm:py-14'>
+        <div ref={about4} className='flex flex-col sm:flex-row items-center w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-6 sm:py-14'>
           <div className='w-full sm:w-1/2 text-center sm:text-left'>
             <h1 className='text-black font-bold capitalize text-2xl sm:text-4xl lg:text-4xl xl:text-4xl'>Des langages, des frameworks et des CMS...</h1>
 

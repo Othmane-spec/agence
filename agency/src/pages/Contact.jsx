@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import ContactHero from '../components/ContactHero'
@@ -6,6 +6,9 @@ import ContactForm from '../components/ContactForm'
 import Maps from '../components/Maps'
 
 function Contact() {
+  useEffect(() => {
+    document.title = "Contact"
+  }, [])
   return (
     <div>
       <Header />
